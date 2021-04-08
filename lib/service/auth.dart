@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:rflutter_alert/rflutter_alert.dart'; // add itt to pubspec as well
 
 Future<bool> login(String email, String password) async {
   try {
@@ -18,8 +19,10 @@ Future<bool> register(String email, String password) async {
     return true;
   } on FirebaseAuthException catch (e) {
     if (e.code == 'weak-password') {
-      print('password is weak');
+      Alert(context: context, title: 'ERROR', desc: 'The password is weak').show();
+      //print('password is weak');
     } else if (e.code == 'email-already-in-use') {
+      Alert(context: context, title: 'ERROR', desc: 'The email is already in use').show();
       print('Enter new email Id');
     }
     return false;
